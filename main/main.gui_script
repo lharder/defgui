@@ -30,7 +30,7 @@ function init(self)
 		"Check me out!" 
 	)
 
-	self.label = self.form:addLabel( "txt", 150, 400, 400, 80,
+	self.label = self.form:addLabel( "txt01", 150, 400, 400, 80,
 		function() 
 			pprint( "Check...!" ) 
 		end, 
@@ -43,7 +43,14 @@ function init(self)
 		end, 
 		"Enter text here" 
 	)
-	
+
+	self.grid = self.form:addGrid( "grid", 150, 200, 500, 100, 3, 2 )
+	for i = 1, 5, 1 do
+		self.grid:addCheckbox( 
+			"check" .. i, function() pprint( "Click Me: " .. i ) end, "CheckMe-" .. i 
+		)
+	end
+	self.grid:addLabel( "txt02", 180, 48, nil, "Lorem ipsum dolor sit amet" )
 end
 
 
