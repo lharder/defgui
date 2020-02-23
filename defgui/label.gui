@@ -1,6 +1,6 @@
 script: ""
 fonts {
-  name: "Roboto"
+  name: "System"
   font: "/builtins/fonts/system_font.font"
 }
 background_color {
@@ -43,7 +43,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: ""
-  font: "Roboto"
+  font: "System"
   id: "root"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
