@@ -30,3 +30,22 @@ function Color( hex, alpha )
 end
 
 
+function Texture( url, default ) 
+	local atlas = ""
+	local img = ""
+
+	if default ~= nil then 
+		local parts = default:split( "/" )
+		atlas = parts[ 1 ]
+		img = parts[ 2 ]
+	end
+
+	if url ~= nil then 
+		local parts = url:split( "/" )
+		atlas = parts[ 1 ]
+		img = parts[ 2 ]
+	end
+
+	return atlas, img
+end
+

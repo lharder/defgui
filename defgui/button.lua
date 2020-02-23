@@ -1,3 +1,5 @@
+require( "defgui.utils" )
+
 local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
 
@@ -69,6 +71,13 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 	function field:setColorBG( color )
 		field:setColor( "background", color )
 		gui.set_color( field.rootNode, field:getColor( "background" ) )
+	end
+
+
+	function field:setImage( atlasImgPath )
+		local atlas, img = Texture( atlasImgPath )
+		gui.set_texture( field.rootNode, atlas )
+		gui.play_flipbook( field.rootNode, img )
 	end
 
 

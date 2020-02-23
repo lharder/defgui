@@ -13,15 +13,20 @@ function init(self)
 		label = "label/root" } 
 	)
 	
-	-- self.label = self.form:addLabel( "label", 150, 700, 200, 100, nil, "Hello world...!" )
-	-- self.label:setColorText( "#ff0000" )
-
-	self.button = self.form:addButton( "hello", 150, 600, 200, 50, 
+	self.button = self.form:addButton( "hello", 150, 600, 200, 48, 
 		function() 
 			pprint( "Hello world...!" ) 
 		end, 
 		"Click!" 
 	)
+
+	self.btnBeauty = self.form:addButton( "beautiful", 400, 600, 200, 48, 
+		function() 
+			pprint( "Hello beauty...!" ) 
+		end, 
+		"Beautiful" 
+	)
+	self.btnBeauty:setImage( "main/button" )
 
 	self.checkbox = self.form:addCheckbox( "check", 150, 500, 
 		function() 

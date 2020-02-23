@@ -3,6 +3,10 @@ fonts {
   name: "System"
   font: "/defgui/system.font"
 }
+textures {
+  name: "main"
+  texture: "/main/main.atlas"
+}
 background_color {
   x: 0.0
   y: 0.0

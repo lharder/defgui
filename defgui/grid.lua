@@ -13,13 +13,13 @@ function Grid.new( form, id, left, top, width, height, columns, rows )
 	grid.height = height
 	grid.columns = columns or 1
 	grid.rows = rows or 1
-	grid.components = {}
+	grid.fields = {}
 
 	function grid:getNextPos()
 		local colSpace = grid.width / grid.columns
 		local rowSpace = grid.height / grid.rows
 
-		local cnt = lua.length( grid.components )
+		local cnt = lua.length( grid.fields )
 		local row = math.floor( cnt / grid.columns )
 		local col = cnt % grid.columns
 
@@ -34,7 +34,7 @@ function Grid.new( form, id, left, top, width, height, columns, rows )
 		local x, y = grid:getNextPos()
 		local field = grid.form:addCheckbox( id, x, y, handler, caption )
 
-		grid.components[ id ] = field
+		grid.fields[ id ] = field
 		return field		
 	end
 
@@ -43,7 +43,7 @@ function Grid.new( form, id, left, top, width, height, columns, rows )
 		local x, y = grid:getNextPos()
 		local field = grid.form:addLabel( id, x, y, width, height, handler, txt )
 
-		grid.components[ id ] = field
+		grid.fields[ id ] = field
 		return field		
 	end
 
@@ -52,7 +52,7 @@ function Grid.new( form, id, left, top, width, height, columns, rows )
 		local x, y = grid:getNextPos()
 		local field = grid.form:addButton( id, x, y, width, height, handler, caption )
 
-		grid.components[ id ] = field
+		grid.fields[ id ] = field
 		return field	
 	end
 
@@ -61,7 +61,7 @@ function Grid.new( form, id, left, top, width, height, columns, rows )
 		local x, y = grid:getNextPos()
 		local field = grid.form:addTextField( id, x, y, width, height, handler, defaultValue )
 
-		grid.components[ id ] = field
+		grid.fields[ id ] = field
 		return field	
 	end
 	
