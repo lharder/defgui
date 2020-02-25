@@ -205,6 +205,13 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	end
 
 
+	function field:setFont( fontname )
+		gui.set_font( field.txtNode, fontname )
+		gui.set_font( field.captionNode, fontname )
+	end
+	
+
+
 	function field:setText( txt )
 		field.value = txt
 		gui.set_text( field.txtNode, field.value ) 

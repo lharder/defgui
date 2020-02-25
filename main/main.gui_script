@@ -27,6 +27,7 @@ function init(self)
 		"Beautiful" 
 	)
 	self.btnBeauty:setImage( "main/button" )
+	self.btnBeauty:setFont( "systemBig" )
 
 	self.checkbox = self.form:addCheckbox( "check", 150, 500, 
 		function() 
@@ -34,6 +35,10 @@ function init(self)
 		end, 
 		"Check me out!" 
 	)
+	self.checkbox:setScale( 1.5 )
+	self.checkbox:setImage( "main/checkbox" )
+	self.checkbox:setColorCaption( "#FF9A34" )
+	self.checkbox:setColorX( "#19CDD1" )
 
 	self.label = self.form:addLabel( "txt01", 150, 400, 400, 80,
 		function() 
@@ -51,9 +56,10 @@ function init(self)
 
 	self.grid = self.form:addGrid( "grid", 150, 200, 500, 100, 3, 2 )
 	for i = 1, 5, 1 do
-		self.grid:addCheckbox( 
+		local chk = self.grid:addCheckbox( 
 			"check" .. i, function() pprint( "Click Me: " .. i ) end, "CheckMe-" .. i 
 		)
+		chk:setScale( 0.8 )
 	end
 	self.grid:addLabel( "txt02", 180, 48, nil, "Lorem ipsum dolor sit amet" )
 end

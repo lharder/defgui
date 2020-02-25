@@ -22,6 +22,7 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 
 	local field = Field.new( id, x, y, width, height, clickHandler )
 	field.caption = caption or ""
+	field.animDone = true
 
 	local tmplNode = lua.guiGetNode( "button/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for buttons in your form!" )
@@ -44,15 +45,20 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 	gui.set_size( field.captionNode, vmath.vector3( width, height, 1 ) )
 
 	form:add( field )
-	
 
+	
 	function field:blink() 
-		local col = gui.get_color( field.rootNode )
-		gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0, 
-			function( self, node ) 
-				gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w ), gui.EASING_LINEAR, 0.1 )
-			end 
-		)
+		if field.animDone then
+			field.animDone = false
+			local col = gui.get_color( field.rootNode )
+			gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0, 
+				function( self, node ) 
+					gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w ), gui.EASING_LINEAR, 0.1, 0, 
+						function() field.animDone = true end
+					)
+				end 
+			)
+		end
 	end
 
 
@@ -81,14 +87,25 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 	end
 
 
-	-- center caption (without having to rely on gui alignment)
-	local rootSize = gui.get_size( field.rootNode )
-	local captionPos = gui.get_position( field.captionNode )
-	local txtSize = field:textSize( field.caption )
-	captionPos.x = ( rootSize.x - txtSize.width ) / 2
-	captionPos.y = -1 * ( rootSize.y - txtSize.height ) / 2 
-	gui.set_position( field.captionNode, captionPos )
+	function field:setFont( fontname )
+		gui.set_font( field.captionNode, fontname )
+		field:centerCaption()
+	end
 
+
+	function field:centerCaption()
+		-- center caption (without having to rely on gui alignment)
+		local rootSize = gui.get_size( field.rootNode )
+		local captionPos = gui.get_position( field.captionNode )
+		local txtSize = field:textSize( field.caption )
+		captionPos.x = ( rootSize.x - txtSize.width ) / 2
+		captionPos.y = -1 * ( rootSize.y - txtSize.height ) / 2 
+		gui.set_position( field.captionNode, captionPos )
+	end
+
+
+	field:centerCaption()
+	
 	return field
 end
 

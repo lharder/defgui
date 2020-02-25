@@ -3,6 +3,10 @@ fonts {
   name: "System"
   font: "/defgui/system.font"
 }
+fonts {
+  name: "systemBig"
+  font: "/main/systemBig.font"
+}
 textures {
   name: "main"
   texture: "/main/main.atlas"

@@ -81,6 +81,18 @@ function Checkbox.new( form, id, x, y, handler, caption )
 	end
 
 
+	function field:setFont( fontname )
+		gui.set_font( field.captionNode, fontname )
+	end
+
+
+	function field:setImage( atlasImgPath )
+		local atlas, img = Texture( atlasImgPath )
+		gui.set_texture( field.rootNode, atlas )
+		gui.play_flipbook( field.rootNode, img )
+	end
+
+
 	return field
 end
 

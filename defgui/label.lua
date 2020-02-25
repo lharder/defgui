@@ -91,6 +91,11 @@ function Label.new( form, id, x, y, width, height, clickHandler, txt )
 	end
 
 
+	function field:setFont( fontname )
+		gui.set_font( field.rootNode, fontname )
+	end
+
+
 	field:setText( txt )
 	return field
 end

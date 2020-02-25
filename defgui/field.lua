@@ -59,6 +59,17 @@ function Field.new( id, x, y, width, height, handler )
 	end
 
 
+	function field:setScale( factor )
+		assert( factor, "Scaling factor must not be nil!" )
+
+		if type( factor ) == "number" then 
+			gui.set_scale( field.rootNode, vmath.vector3( factor, factor, factor ) )
+		else
+			gui.set_scale( field.rootNode, factor )
+		end
+	end
+	
+
 	return field
 end
 
