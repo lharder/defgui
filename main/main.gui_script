@@ -10,17 +10,18 @@ function init(self)
 		button = "button/root", 
 		checkbox = "checkbox/root", 
 		txtfield = "txtfield/root", 
-		label = "label/root" } 
+		label = "label/root",
+		selectbox = "selectbox/root" } 
 	)
 	
-	self.button = self.form:addButton( "hello", 150, 600, 200, 48, 
+	self.button = self.form:addButton( "hello", 150, 700, 200, 48, 
 		function() 
 			pprint( "Hello world...!" ) 
 		end, 
 		"Click!" 
 	)
 
-	self.btnBeauty = self.form:addButton( "beautiful", 400, 600, 200, 48, 
+	self.btnBeauty = self.form:addButton( "beautiful", 400, 700, 200, 48, 
 		function() 
 			pprint( "Hello beauty...!" ) 
 		end, 
@@ -29,7 +30,7 @@ function init(self)
 	self.btnBeauty:setImage( "main/button" )
 	self.btnBeauty:setFont( "systemBig" )
 
-	self.checkbox = self.form:addCheckbox( "check", 150, 500, 
+	self.checkbox = self.form:addCheckbox( "check", 150, 600, 
 		function() 
 			pprint( "Check...!" ) 
 		end, 
@@ -40,21 +41,21 @@ function init(self)
 	self.checkbox:setColorCaption( "#FF9A34" )
 	self.checkbox:setColorX( "#19CDD1" )
 
-	self.label = self.form:addLabel( "txt01", 150, 400, 400, 80,
+	self.label = self.form:addLabel( "txt01", 150, 500, 400, 80,
 		function() 
 			pprint( "Check...!" ) 
 		end, 
 		"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
 	)
 
-	self.txtfield = self.form:addTextField( "input", 150, 300, 200, 32, 
+	self.txtfield = self.form:addTextField( "input", 150, 400, 200, 32, 
 		function() 
 			pprint( "Text entered: " .. self.txtfield.value ) 
 		end, 
 		"Enter text here" 
 	)
 
-	self.grid = self.form:addGrid( "grid", 150, 200, 500, 100, 3, 2 )
+	self.grid = self.form:addGrid( "grid", 150, 300, 500, 100, 3, 2 )
 	for i = 1, 5, 1 do
 		local chk = self.grid:addCheckbox( 
 			"check" .. i, function() pprint( "Click Me: " .. i ) end, "CheckMe-" .. i 
@@ -62,6 +63,17 @@ function init(self)
 		chk:setScale( 0.8 )
 	end
 	self.grid:addLabel( "txt02", 180, 48, nil, "Lorem ipsum dolor sit amet" )
+
+	-- id, x, y, width, height, clickHandler )
+	self.selectbox = self.form:addSelectbox( "selectbox", 150, 200, 200, 100, 
+		function() 
+			pprint( "Selected " ) 
+		end
+	)
+	self.selectbox:addItem( "Foo ist toll", "foo" )
+	self.selectbox:addItem( "Kaufen Sie Bar", "bar" )
+	self.selectbox:addItem( "Baz ist super", "baz" )
+	
 end
 
 

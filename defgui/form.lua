@@ -5,6 +5,7 @@ local InputText = require( "defgui.txtfield" )
 local Button = require( "defgui.button" )
 local Checkbox = require( "defgui.checkbox" )
 local Label = require( "defgui.label" )
+local Selectbox = require( "defgui.selectbox" )
 local Grid = require( "defgui.grid" )
 
 
@@ -65,6 +66,11 @@ function Form.new( id, nodenames )
 
 	function form:addLabel( id, x, y, width, height, handler, txt )
 		local field = Label.new( form, id, x, y, width, height, handler, txt )
+		return field
+	end
+
+	function form:addSelectbox( id, x, y, width, height, handler )
+		local field = Selectbox.new( form, id, x, y, width, height, handler )
 		return field
 	end
 
