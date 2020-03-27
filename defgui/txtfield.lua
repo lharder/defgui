@@ -27,7 +27,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 				field.timeNextKeyIsOk = socket.gettime() + field.keystrokeCooldownTime
 
 				local cursorPos = gui.get_position( field.cursorNode )
-				if cursorPos.x >= 2 then field:placeCursor( cursorPos.x - ( field.charWidth / 2 ) ) end
+				if cursorPos.x >= 2 then field:placeCursor( cursorPos.x - field.charWidth ) end
 			end
 
 		elseif action_id == hash( "right" ) and field.hasFocus then
@@ -207,7 +207,10 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 
 	function field:setFont( fontname )
 		gui.set_font( field.txtNode, fontname )
-		gui.set_font( field.captionNode, fontname )
+		gui.set_font( field.cursorNode, fontname )
+
+		-- need to adjust reference width of chars
+		field.charWidth = field:textSize( "o" ).width
 	end
 	
 
@@ -218,7 +221,8 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	end
 
 
-	field.charWidth = field:textSize( "-" ).width
+	-- set reference width of chars. "o" is random.
+	field.charWidth = field:textSize( "o" ).width
 	field:placeCursor()
 
 	return field
