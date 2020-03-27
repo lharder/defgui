@@ -2,7 +2,7 @@ local defgui = require( "defgui.defgui" )
 local Label = require( "defgui.label" )
 
 
-function init(self)
+function init( self )
 	msg.post(".", "acquire_input_focus")
 	msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 
@@ -64,15 +64,21 @@ function init(self)
 	end
 	self.grid:addLabel( "txt02", 180, 48, nil, "Lorem ipsum dolor sit amet" )
 
-	-- id, x, y, width, height, clickHandler )
+	
 	self.selectbox = self.form:addSelectbox( "selectbox", 150, 200, 200, 100, 
 		function() 
 			pprint( "Selected " ) 
 		end
 	)
-	self.selectbox:addItem( "Foo ist toll", "foo" )
-	self.selectbox:addItem( "Kaufen Sie Bar", "bar" )
-	self.selectbox:addItem( "Baz ist super", "baz" )
+	self.selectbox:setItems({
+		{ caption = "Foo ist toll", value = "foo" },
+		{ caption = "Kaufen Sie Bar", value = "bar" },
+		"Baz ohne Value geht!",
+		"Picky",
+		"Bastard"
+	})
+	self.selectbox:addItem( "Off limits rulez!", "off" )
+	self.selectbox:addItem( "Expanded is ok", "expand" )
 	
 end
 
