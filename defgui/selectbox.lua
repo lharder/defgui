@@ -22,6 +22,7 @@ function Selectbox.new( form, id, x, y, width, height, myselecthandler )
 			if gui.pick_node( field.rootNode, action.x, action.y ) then
 				pprint( "open: " .. tostring( field.isOpen ) )
 
+				field:blink()
 				field:showList( not field.isOpen )
 			end
 		end
@@ -31,6 +32,7 @@ function Selectbox.new( form, id, x, y, width, height, myselecthandler )
 	field.items = {}
 	field.selectedIndex = 0
 	field.isOpen = false
+	field.animDone = true
 
 	local tmplNode = lua.guiGetNode( "selectbox/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for selectboxes in your form!" )
@@ -61,7 +63,7 @@ function Selectbox.new( form, id, x, y, width, height, myselecthandler )
 	gui.set_enabled( field.opener, true )
 
 	gui.set_id( field.openerTxt, id .. "/openerTxt" )
-	gui.set_position( field.openerTxt, vmath.vector3( 6, 4, 0 ) )
+	-- gui.set_position( field.openerTxt, vmath.vector3( 14, -12, 0 ) )
 	gui.set_enabled( field.openerTxt, true )
 	
 	gui.set_id( field.rootNode, id .. "/root" )
@@ -123,6 +125,21 @@ function Selectbox.new( form, id, x, y, width, height, myselecthandler )
 		field.isOpen = state
 	end
 	
+
+	function field:blink() 
+		if field.animDone then
+			field.animDone = false
+			local col = gui.get_color( field.opener )
+			gui.animate( field.opener, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0, 
+					function( self, node ) 
+						gui.animate( field.opener, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w ), gui.EASING_LINEAR, 0.1, 0, 
+						function() field.animDone = true end
+					)
+				end 
+			)
+		end
+	end
+
 	
 	function field:textSize( txt )
 		if txt == nil then txt = field.value end
