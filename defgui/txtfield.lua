@@ -205,12 +205,22 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	end
 
 
-	function field:setFont( fontname )
+	-- with different fonts, the y position of the cursor may need
+	-- to be corrected. Optional parameter to allow for that.
+	function field:setFont( fontname, yOffsetCursor )
 		gui.set_font( field.txtNode, fontname )
 		gui.set_font( field.cursorNode, fontname )
 
 		-- need to adjust reference width of chars
 		field.charWidth = field:textSize( "o" ).width
+
+		if yOffsetCursor then
+			local pos = gui.get_position( field.cursorNode )
+			if pos ~= nil then
+				pos.y = pos.y + yOffsetCursor
+				gui.set_position( field.cursorNode, pos )
+			end
+		end
 	end
 	
 

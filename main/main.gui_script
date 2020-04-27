@@ -54,6 +54,8 @@ function init( self )
 		end, 
 		"Enter text here" 
 	)
+	-- optionally move cursor 8 pixels higher to compensate for bigger font:
+	self.txtfield:setFont( "systemBig", 8 )  
 
 	self.grid = self.form:addGrid( "grid", 150, 300, 500, 100, 3, 2 )
 	for i = 1, 5, 1 do
