@@ -43,7 +43,7 @@ function Selectbox.new( form, id, x, y, width, height, cntOpenItems, selecthandl
 					if isBigSwipe( g.swipe ) then 
 						index = field.offsetList + 3 * field.cntOpenItems 
 					else 
-						index = field.offsetList + field.cntOpenItems 
+						index = field.offsetList + field.cntOpenItems - 1
 					end 
 					if index > #field.items - field.cntOpenItems then 
 						index = #field.items - field.cntOpenItems 
@@ -55,7 +55,7 @@ function Selectbox.new( form, id, x, y, width, height, cntOpenItems, selecthandl
 					if isBigSwipe( g.swipe ) then 
 						index = field.offsetList - 3 * field.cntOpenItems 
 					else 
-						index = field.offsetList - field.cntOpenItems 
+						index = field.offsetList - field.cntOpenItems
 					end
 					if index < 0 then index = 0 end
 					field:scrollTo( index )
@@ -140,10 +140,10 @@ function Selectbox.new( form, id, x, y, width, height, cntOpenItems, selecthandl
 		local yDel = del * field:getItemHeight() 
 		local pos = gui.get_position( field.list )
 		pos.y = pos.y + yDel
-
+		
 		gui.animate( field.list, hash( "position.y" ), pos.y, gui.EASING_OUTELASTIC, 2, 0, 
 			function() 
-				field.offsetList = index 
+				field.offsetList = index
 			end
 		)
 	end

@@ -14,12 +14,6 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 
 				local rootPos = gui.get_position( field.rootNode )
 				field:placeCursor( action.x - rootPos.x )
-				
-				-- call users custom input listener if provided
-				if handler then
-					local ok, errMsg = pcall( handler, guiSelf, field, action_id, action )
-					if not ok then pprint( "Custom input handler of field " .. field.id .. " caused error: " .. errMsg ) end
-				end
 			end
 
 		elseif action_id == hash( "left" ) and field.hasFocus then
@@ -75,6 +69,12 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 					field:placeCursor( txtWidth )
 				end
 			end
+		end
+
+		-- call users custom input listener if provided
+		if handler then
+			local ok, errMsg = pcall( handler, guiSelf, field, action_id, action )
+			if not ok then pprint( "Custom input handler of field " .. field.id .. " caused error: " .. errMsg ) end
 		end
 
 	end
@@ -205,22 +205,12 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	end
 
 
-	-- with different fonts, the y position of the cursor may need
-	-- to be corrected. Optional parameter to allow for that.
-	function field:setFont( fontname, yOffsetCursor )
+	function field:setFont( fontname )
 		gui.set_font( field.txtNode, fontname )
 		gui.set_font( field.cursorNode, fontname )
 
 		-- need to adjust reference width of chars
 		field.charWidth = field:textSize( "o" ).width
-
-		if yOffsetCursor then
-			local pos = gui.get_position( field.cursorNode )
-			if pos ~= nil then
-				pos.y = pos.y + yOffsetCursor
-				gui.set_position( field.cursorNode, pos )
-			end
-		end
 	end
 	
 

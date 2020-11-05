@@ -54,8 +54,6 @@ function init( self )
 		end, 
 		"Enter text here" 
 	)
-	-- optionally move cursor 8 pixels higher to compensate for bigger font:
-	self.txtfield:setFont( "systemBig", 8 )  
 
 	self.grid = self.form:addGrid( "grid", 150, 300, 500, 100, 3, 2 )
 	for i = 1, 5, 1 do
@@ -67,7 +65,7 @@ function init( self )
 	self.grid:addLabel( "txt02", 180, 48, nil, "Lorem ipsum dolor sit amet" )
 
 	
-	self.selectbox = self.form:addSelectbox( "selectbox", 150, 200, 200, 100, 4,
+	self.selectbox = self.form:addSelectbox( "selectbox", 150, 200, 200, 100, 3,
 		function( item ) 
 			pprint( "selected: " .. item.caption ) 
 		end
