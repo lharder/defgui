@@ -7,7 +7,7 @@ local Field = require( "defgui.field" )
 -- Label --------------------------------------------------
 local Label = {}
 
-function Label.new( form, id, x, y, width, height, clickHandler, txt )
+function Label.new( form, id, x, y, width, height, handler, txt )
 	local clickHandler = function( guiSelf, field, action_id, action )
 		if action_id == hash( "touch" ) and action.pressed then 
 			if gui.pick_node( field.rootNode, action.x, action.y ) then

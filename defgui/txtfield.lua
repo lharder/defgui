@@ -14,12 +14,6 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 
 				local rootPos = gui.get_position( field.rootNode )
 				field:placeCursor( action.x - rootPos.x )
-				
-				-- call users custom input listener if provided
-				if handler then
-					local ok, errMsg = pcall( handler, guiSelf, field, action_id, action )
-					if not ok then pprint( "Custom input handler of field " .. field.id .. " caused error: " .. errMsg ) end
-				end
 			end
 
 		elseif action_id == hash( "left" ) and field.hasFocus then
@@ -75,6 +69,12 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 					field:placeCursor( txtWidth )
 				end
 			end
+		end
+
+		-- call users custom input listener if provided
+		if handler then
+			local ok, errMsg = pcall( handler, guiSelf, field, action_id, action )
+			if not ok then pprint( "Custom input handler of field " .. field.id .. " caused error: " .. errMsg ) end
 		end
 
 	end
