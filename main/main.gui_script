@@ -65,7 +65,7 @@ function init( self )
 	self.grid:addLabel( "txt02", 180, 48, nil, "Lorem ipsum dolor sit amet" )
 
 	
-	self.selectbox = self.form:addSelectbox( "selectbox", 150, 200, 200, 100, 3,
+	self.selectbox = self.form:addSelectbox( "selectbox", 150, 200, 200, 100, 4,
 		function( item ) 
 			pprint( "selected: " .. item.caption ) 
 		end

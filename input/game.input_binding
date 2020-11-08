@@ -18,10 +18,6 @@ key_trigger {
   input: KEY_UP
   action: "up"
 }
-key_trigger {
-  input: KEY_ENTER
-  action: "key_enter"
-}
 mouse_trigger {
   input: MOUSE_BUTTON_LEFT
   action: "touch"
