@@ -11,7 +11,9 @@ function init( self )
 		checkbox = "checkbox/root", 
 		txtfield = "txtfield/root", 
 		label = "label/root",
-		selectbox = "selectbox/root" } 
+		selectbox = "selectbox/root",
+		slider = "slider/root",
+	  } 
 	)
 	
 	self.button = self.form:addButton( "hello", 150, 700, 200, 48, 
@@ -79,6 +81,11 @@ function init( self )
 	})
 	self.selectbox:addItem( "Off limits rulez!", "off" )
 	self.selectbox:addItem( "Expanded is ok", "expand" )
+
+
+	self.slider = self.form:addSlider( "slider", 250, 100, function() 
+		pprint( "Foo!" )
+	end, "Foo" )
 	
 end
 

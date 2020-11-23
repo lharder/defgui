@@ -7,6 +7,7 @@ local Checkbox = require( "defgui.checkbox" )
 local Label = require( "defgui.label" )
 local Selectbox = require( "defgui.selectbox" )
 local Grid = require( "defgui.grid" )
+local Slider = require( "defgui.slider" )
 
 
 -- Form -------------------------------------------
@@ -63,6 +64,13 @@ function Form.new( id, nodenames )
 		local field = Checkbox.new( form, id, x, y, handler, caption )
 		return field
 	end
+
+	
+	function form:addSlider( id, x, y, handler, caption )
+		local field = Slider.new( form, id, x, y, handler, caption )
+		return field
+	end
+	
 
 	function form:addLabel( id, x, y, width, height, handler, txt )
 		local field = Label.new( form, id, x, y, width, height, handler, txt )
