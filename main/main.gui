@@ -1521,7 +1521,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "Caption"
-  font: "systemBig"
+  font: "neuropol"
   id: "slider/caption"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

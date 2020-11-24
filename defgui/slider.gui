@@ -1,7 +1,7 @@
 script: ""
 fonts {
-  name: "systemBig"
-  font: "/main/systemBig.font"
+  name: "neuropol"
+  font: "/defgui/assets/neuropol.font"
 }
 textures {
   name: "slider"
@@ -321,7 +321,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "Caption"
-  font: "systemBig"
+  font: "neuropol"
   id: "caption"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
