@@ -5,7 +5,7 @@ fonts {
 }
 textures {
   name: "slider"
-  texture: "/assets/slider.tilesource"
+  texture: "/defgui/assets/slider.tilesource"
 }
 background_color {
   x: 0.0
