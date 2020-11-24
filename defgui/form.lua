@@ -92,6 +92,24 @@ function Form.new( id, nodenames )
 	function form:getGrid( id )
 		return form.grids[ id ]
 	end
+
+
+	function form:fade( opacity, secs, callback )
+		if secs == nil then secs = 1 end
+		for name, field in pairs( form.fields ) do
+			gui.animate( field.rootNode, "color.w", opacity, gui.EASING_LINEAR, secs, 0, function() 
+				if callback then callback() end
+			end, gui.PLAYBACK_ONCE_FORWARD )
+		end
+	end
+
+	function form:fadeout( secs, callback )
+		form:fade( 0, secs, callback )
+	end
+
+	function form:fadein( secs, callback )
+		form:fade( 1, secs, callback )
+	end
 	
 
 	return form

@@ -57,6 +57,7 @@ function Slider.new( form, id, x, y, handler, caption )
 	assert( field.captionNode, "Unable to access newly created slider/caption node!" )
 	gui.set_id( field.captionNode, id .. "/caption" )
 	gui.set_text( field.captionNode, caption )
+	gui.set_enabled( field.captionNode, true )
 
 	field.onNode = nodes[ hash( "slider/on" ) ] 
 	assert( field.onNode, "Unable to access newly created slider/on node!" )
@@ -90,8 +91,6 @@ function Slider.new( form, id, x, y, handler, caption )
 	function field:switchOff()
 		field.value = false
 		
-		-- gui.set_enabled( field.offNode, true )
-		-- gui.set_enabled( field.onNode, false )
 		fadein( field.onNode )
 		fadeout( field.offNode )
 		gui.animate( field.btnOnNode, "position.x", 80, gui.EASING_LINEAR, .3, 0, function() 
@@ -106,8 +105,6 @@ function Slider.new( form, id, x, y, handler, caption )
 	function field:switchOn()
 		field.value = true
 		
-		-- gui.set_enabled( field.onNode, true )
-		-- gui.set_enabled( field.offNode, false )
 		fadein( field.offNode )
 		fadeout( field.onNode )
 		

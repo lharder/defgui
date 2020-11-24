@@ -1308,7 +1308,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "slider/root"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
@@ -1363,7 +1363,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "slider/root"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
@@ -1418,7 +1418,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "slider/root"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
@@ -1473,7 +1473,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "slider/root"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
