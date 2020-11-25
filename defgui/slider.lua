@@ -2,23 +2,6 @@ local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
 
 
--- Helper -----------------------------------------------
-local function setTransparency( node, opacity, callback )
-	local col = gui.get_color( node )
-	gui.animate( node, "color.w", opacity, gui.EASING_LINEAR, .3, 0, callback, gui.PLAYBACK_ONCE_FORWARD )
-end
-
-
-function fadein( node )
-	setTransparency( node, 0, callback )
-end
-
-
-function fadeout( node )
-	setTransparency( node, 1, callback )
-end
-
-
 -- Slider -----------------------------------------------
 local Slider = {}
 
@@ -91,8 +74,9 @@ function Slider.new( form, id, x, y, handler, caption )
 	function field:switchOff()
 		field.value = false
 		
-		fadein( field.onNode )
-		fadeout( field.offNode )
+		gui.animate( field.onNode, "color.w", 0, gui.EASING_LINEAR, .3, 0, callback, gui.PLAYBACK_ONCE_FORWARD )
+		gui.animate( field.offNode, "color.w", 1, gui.EASING_LINEAR, .3, 0, callback, gui.PLAYBACK_ONCE_FORWARD )
+		
 		gui.animate( field.btnOnNode, "position.x", 80, gui.EASING_LINEAR, .3, 0, function() 
 			gui.set_enabled( field.btnOffNode, true )
 			
@@ -105,8 +89,8 @@ function Slider.new( form, id, x, y, handler, caption )
 	function field:switchOn()
 		field.value = true
 		
-		fadein( field.offNode )
-		fadeout( field.onNode )
+		gui.animate( field.offNode, "color.w", 0, gui.EASING_LINEAR, .3, 0, callback, gui.PLAYBACK_ONCE_FORWARD )
+		gui.animate( field.onNode, "color.w", 1, gui.EASING_LINEAR, .3, 0, callback, gui.PLAYBACK_ONCE_FORWARD )
 		
 		gui.animate( field.btnOffNode, "position.x", -80, gui.EASING_LINEAR, .3, 0, function() 
 			gui.set_enabled( field.btnOnNode, true )
