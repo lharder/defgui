@@ -50,12 +50,13 @@ function init( self )
 		"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
 	)
 
-	self.txtfield = self.form:addTextField( "input", 150, 400, 200, 32, 
+	self.txtfield = self.form:addTextField( "input", 150, 400, 400, 40, 
 		function() 
 			pprint( "Text entered: " .. self.txtfield.value ) 
 		end, 
 		"Enter text here" 
 	)
+	self.txtfield:setFont( "neuropol" )
 
 	self.grid = self.form:addGrid( "grid", 150, 300, 500, 100, 3, 2 )
 	for i = 1, 5, 1 do

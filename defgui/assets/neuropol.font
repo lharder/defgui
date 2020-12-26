@@ -1,6 +1,6 @@
 font: "/defgui/assets/neuropol.ttf"
 material: "/builtins/fonts/font.material"
-size: 30
+size: 20
 antialias: 1
 alpha: 1.0
 outline_alpha: 0.0

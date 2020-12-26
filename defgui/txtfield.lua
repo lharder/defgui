@@ -21,7 +21,9 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 				field.timeNextKeyIsOk = socket.gettime() + field.keystrokeCooldownTime
 
 				local cursorPos = gui.get_position( field.cursorNode )
-				if cursorPos.x >= 2 then field:placeCursor( cursorPos.x - field.charWidth ) end
+				local leftChar = field:getCharLeftOfCursor()
+				local leftCharWidth = field:textSize( leftChar ).width
+				if cursorPos.x >= 2 then field:placeCursor( cursorPos.x - leftCharWidth ) end
 			end
 
 		elseif action_id == hash( "right" ) and field.hasFocus then
@@ -29,7 +31,9 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 				field.timeNextKeyIsOk = socket.gettime() + field.keystrokeCooldownTime
 
 				local cursorPos = gui.get_position( field.cursorNode )
-				if cursorPos.x < field.width - field.charWidth then field:placeCursor( cursorPos.x + field.charWidth ) end
+				local rightChar = field:getCharRightOfCursor()
+				local rightCharWidth = field:textSize( rightChar ).width
+				if cursorPos.x < field.width - field.charWidth then field:placeCursor( cursorPos.x + rightCharWidth ) end
 			end
 
 		elseif action_id == hash( "text" ) and field.hasFocus then 
@@ -37,18 +41,17 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 				field.timeNextKeyIsOk = socket.gettime() + field.keystrokeCooldownTime
 
 				local cursorPos = gui.get_position( field.cursorNode )
+				
 				local txtWidth = field:textSize( field.value ).width
-				if txtWidth < field.width - field.charWidth then
-
-					local index = field.insertNextCharAt
-					local left = field.value:sub( 1, index )
-					local right = field.value:sub( index + 1 )
+				local newCharWidth = field:textSize( action.text ).width
+				
+				if txtWidth < field.width - newCharWidth then
+					local left = field:getTxtLeftOfCursor()
+					local right = field:getTxtRightOfCursor()
 					field.value = left .. action.text .. right 
-
 					gui.set_text( field.txtNode, field.value )
 
-					field.insertNextCharAt = field.insertNextCharAt + 1
-					field:placeCursor( cursorPos.x + field.charWidth )
+					field:placeCursor( cursorPos.x + newCharWidth )
 				end
 			end
 
@@ -67,7 +70,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 
 					local txtWidth = field:textSize( left ).width
 					field:placeCursor( txtWidth )
-				end
+				end 
 			end
 		end
 
@@ -83,8 +86,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	field.value = defaultValue or ""
 	field.timeNextKeyIsOk = socket.gettime()
 	field.keystrokeCooldownTime = 0.15
-	field.insertNextCharAt = 1
-	field.charWidth = 12					-- width of a single character in the given font: may be changed!
+	field.charWidth = 16 -- width of a single character in the given font: may be changed!
 
 
 	local tmplNode = lua.guiGetNode( "txtfield/root" )
@@ -126,7 +128,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 		local cursorPos = gui.get_position( field.cursorNode )
 
 		-- if click is to the very left, do not(!) enter loop even once...
-		if cursorPos.x < field:textSize( "-" ).width then return "", 0 end
+		if cursorPos.x < field:textSize( "o" ).width then return "", 0 end
 		
 		local leftTxt
 		local txtWidth
@@ -146,8 +148,32 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 			return field.value:sub( 1, noOfChar ), leftTxtWidth
 		end
 	end
+	
+
+	function field:getCharLeftOfCursor()
+		local leftTxt, leftTxtWidth = field:getTxtLeftOfCursor()
+		pprint( "all text left: " .. leftTxt )
+		if leftTxt == nil then return nil, 0 end
+
+		return leftTxt:sub( #leftTxt )
+	end
 
 
+	function field:getTxtRightOfCursor()
+		local leftTxt, leftTxtWidth = field:getTxtLeftOfCursor()
+		return field.value:sub( #leftTxt + 1 ) 
+	end
+
+
+	function field:getCharRightOfCursor()
+		local rightTxt, rightTxtWidth = field:getTxtRightOfCursor()
+		pprint( "all text right: " .. rightTxt )
+		if rightTxt == nil then return nil, 0 end
+
+		return rightTxt:sub( 1, 1 )
+	end
+
+	
 	function field:placeCursor( clickPosX )
 		local cursorPos = gui.get_position( field.cursorNode )
 		if clickPosX then 
@@ -158,9 +184,6 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 		local leftTxt, leftTxtWidth = field:getTxtLeftOfCursor()
 		if leftTxtWidth then 
 			cursorPos.x = leftTxtWidth
-			-- pprint( leftTxt )
-
-			field.insertNextCharAt = #leftTxt
 		end
 		gui.set_position( field.cursorNode, cursorPos )
 
