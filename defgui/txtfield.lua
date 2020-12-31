@@ -69,7 +69,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 				field.timeNextKeyIsOk = socket.gettime() + field.keystrokeCooldownTime
 
 				local leftTxt, leftTxtWidth = field:getTxtLeftOfCursor()
-				if not leftTxt then leftTxt = "" end
+				if leftTxt == nil then leftTxt = "" end
 				if #leftTxt > 0 then
 					local left = field.value:sub( 1, #leftTxt - 1 )
 					local right = field.value:sub( #leftTxt + 1 )
@@ -94,7 +94,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	local field = Field.new(  id, x, y, width, height, inputTxtHandler )
 	field.value = defaultValue or ""
 	field.timeNextKeyIsOk = socket.gettime()
-	field.keystrokeCooldownTime = 0.15
+	field.keystrokeCooldownTime = 0.1
 	field.charWidth = 16 -- width of a single character in the given font: may be changed!
 
 
@@ -155,13 +155,14 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 
 		if leftTxtWidth then 
 			return field.value:sub( 1, noOfChar ), leftTxtWidth
+		else 
+			return ""
 		end
 	end
 	
 
 	function field:getCharLeftOfCursor()
 		local leftTxt, leftTxtWidth = field:getTxtLeftOfCursor()
-		pprint( "all text left: " .. leftTxt )
 		if leftTxt == nil then return nil, 0 end
 
 		return leftTxt:sub( #leftTxt )
@@ -170,13 +171,14 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 
 	function field:getTxtRightOfCursor()
 		local leftTxt, leftTxtWidth = field:getTxtLeftOfCursor()
+		if leftTxt == nil then return "" end
+		
 		return field.value:sub( #leftTxt + 1 ) 
 	end
 
 
 	function field:getCharRightOfCursor()
 		local rightTxt, rightTxtWidth = field:getTxtRightOfCursor()
-		pprint( "all text right: " .. rightTxt )
 		if rightTxt == nil then return nil, 0 end
 
 		return rightTxt:sub( 1, 1 )
