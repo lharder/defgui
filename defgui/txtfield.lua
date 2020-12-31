@@ -2,21 +2,30 @@ local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
 
 
+-- Beware: disabled nodes DO receive clicks! 
+-- Totally unexpected behavior, correct!
+function guiIsClicked( node, action_id, action )
+	if node == nil then return false end
+	if action_id == hash( "touch" ) and action.pressed then 
+		return gui.is_enabled( node ) and gui.pick_node( node, action.x, action.y ) 
+	end
+	return false
+end
+
+
 -- InputText -------------------------------------------
 local InputText = {}
 
 function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	local inputTxtHandler = function( guiSelf, field, action_id, action )
-		if action_id == hash( "touch" ) and action.pressed then 
+		if guiIsClicked( field.rootNode, action_id, action ) then
+			field:focus()
 
-			if gui.pick_node( field.rootNode, action.x, action.y ) then
-				field:focus()
+			local rootPos = gui.get_position( field.rootNode )
+			field:placeCursor( action.x - rootPos.x )
+		end
 
-				local rootPos = gui.get_position( field.rootNode )
-				field:placeCursor( action.x - rootPos.x )
-			end
-
-		elseif action_id == hash( "left" ) and field.hasFocus then
+		if action_id == hash( "left" ) and field.hasFocus then
 			if socket.gettime() > field.timeNextKeyIsOk then
 				field.timeNextKeyIsOk = socket.gettime() + field.keystrokeCooldownTime
 
@@ -128,7 +137,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 		local cursorPos = gui.get_position( field.cursorNode )
 
 		-- if click is to the very left, do not(!) enter loop even once...
-		if cursorPos.x < field:textSize( "o" ).width then return "", 0 end
+		if cursorPos.x < field:textSize( "i" ).width then return "", 0 end
 		
 		local leftTxt
 		local txtWidth
