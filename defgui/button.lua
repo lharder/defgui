@@ -1,4 +1,5 @@
 require( "defgui.utils" )
+require( "defgui.defold" )
 
 local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
@@ -9,13 +10,11 @@ local Button = {}
 
 function Button.new( form, id, x, y, width, height, handler, caption )
 	local clickHandler = function( guiSelf, field, action_id, action )
-		if action_id == hash( "touch" ) and action.pressed then 
-			if gui.pick_node( field.rootNode, action.x, action.y ) then
-				field:blink()
-				-- call custom button handler, as well
-				if handler then 
-					handler( guiSelf, field, action_id, action )
-				end
+		if guiIsClicked( field.rootNode, action_id, action ) then 
+			field:blink()
+			-- call custom button handler, as well
+			if handler then 
+				handler( guiSelf, field, action_id, action )
 			end
 		end
 	end
@@ -24,7 +23,7 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 	field.caption = caption or ""
 	field.animDone = true
 
-	local tmplNode = lua.guiGetNode( "button/root" )
+	local tmplNode = guiGetNode( "button/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for buttons in your form!" )
 	
 	local nodes = gui.clone_tree( tmplNode )

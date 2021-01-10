@@ -1,3 +1,5 @@
+require( "defgui.defold" )
+
 local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
 
@@ -7,14 +9,12 @@ local Slider = {}
 
 function Slider.new( form, id, x, y, handler, caption )
 	local clickHandler = function( guiSelf, field, action_id, action )
-		if action_id == hash( "touch" ) and action.pressed then 
-			if gui.pick_node( field.rootNode, action.x, action.y ) then
-				field:switch()
+		if guiIsClicked( field.rootNode, action_id, action ) then 
+			field:switch()
 
-				-- call custom button handler, as well
-				if handler then 
-					handler( guiSelf, field, action_id, action )
-				end
+			-- call custom button handler, as well
+			if handler then 
+				handler( guiSelf, field, action_id, action )
 			end
 		end
 	end
@@ -24,7 +24,7 @@ function Slider.new( form, id, x, y, handler, caption )
 	field.value = true
 
 
-	local tmplNode = lua.guiGetNode( "slider/root" )
+	local tmplNode = guiGetNode( "slider/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for sliders in your form!" )
 
 	local nodes = gui.clone_tree( tmplNode )

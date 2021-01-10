@@ -1,3 +1,4 @@
+require( "defgui.defold" )
 local lua = require( "defgui.lualib" )
 
 local Field = require( "defgui.field" )
@@ -25,7 +26,7 @@ function Form.new( id, nodenames )
 
 	-- disable template nodes: only use to be copied
 	for fieldname, nodename in pairs( nodenames ) do
-		form.nodes[ fieldname ] = lua.guiGetNode( nodename )
+		form.nodes[ fieldname ] = guiGetNode( nodename )
 		if form.nodes[ fieldname ] then 
 			gui.set_enabled( form.nodes[ fieldname ], false )
 		end

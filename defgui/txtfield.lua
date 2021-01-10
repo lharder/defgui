@@ -1,3 +1,5 @@
+require( "defgui.defold" )
+
 local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
 
@@ -98,7 +100,7 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	field.charWidth = 16 -- width of a single character in the given font: may be changed!
 
 
-	local tmplNode = lua.guiGetNode( "txtfield/root" )
+	local tmplNode = guiGetNode( "txtfield/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for textfields in your form!" )
 
 	local nodes = gui.clone_tree( tmplNode )

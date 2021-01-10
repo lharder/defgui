@@ -84,7 +84,7 @@ function init( self )
 	self.selectbox:addItem( "Expanded is ok", "expand" )
 
 
-	self.slider = self.form:addSlider( "slider", 286, 100, function() 
+	self.slider = self.form:addSlider( "slider", 900, 670, function() 
 		pprint( "Foo!" )
 	end, "Foo" )
 	

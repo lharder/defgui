@@ -9,11 +9,9 @@ local Label = {}
 
 function Label.new( form, id, x, y, width, height, handler, txt )
 	local clickHandler = function( guiSelf, field, action_id, action )
-		if action_id == hash( "touch" ) and action.pressed then 
-			if gui.pick_node( field.rootNode, action.x, action.y ) then
-				if handler then 
-					handler( guiSelf, field, action_id, action )
-				end
+		if guiIsClicked( field.rootNode, action_id, action ) then 
+			if handler then 
+				handler( guiSelf, field, action_id, action )
 			end
 		end
 	end
@@ -21,7 +19,7 @@ function Label.new( form, id, x, y, width, height, handler, txt )
 
 	local field = Field.new( id, x, y, width, height, clickHandler )
 
-	local tmplNode = lua.guiGetNode( "label/root" )
+	local tmplNode = guiGetNode( "label/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for labels in your form!" )
 
 	local nodes = gui.clone_tree( tmplNode )

@@ -1,4 +1,5 @@
 require( "defgui.utils" )
+require( "defgui.defold" )
 
 local gesture = require( "in.gesture" )
 local lua = require( "defgui.lualib" )
@@ -94,7 +95,7 @@ function Selectbox.new( form, id, x, y, width, height, cntOpenItems, selecthandl
 	field.cntOpenItems = cntOpenItems
 	field.offsetList = 0
 
-	local tmplNode = lua.guiGetNode( "selectbox/root" )
+	local tmplNode = guiGetNode( "selectbox/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for selectboxes in your form!" )
 
 	local nodes = gui.clone_tree( tmplNode )

@@ -1,7 +1,11 @@
 string.split = function( s, delim )
 	local fields = {}
 	local pattern = string.format( "([^%s]+)", delim )
-	s:gsub( pattern, function( c ) fields[ #fields + 1 ] = c end )
+	s:gsub( pattern, 
+		function( c ) 
+			fields[ #fields + 1 ] = c 
+		end 
+	)
 
 	return fields
 end
@@ -18,9 +22,15 @@ end
 
 
 string.indexOf = function( s, txt, startAtPos )
-	-- returns two values: start and end position!
 	if startAtPos == nil then startAtPos = 0 end
-	return string.find( s, txt, startAtPos, true )
+
+	-- returns two values: start and end position!
+	local start, stop = string.find( s, txt, startAtPos, true )
+	if start then 
+		return start 
+	else
+		return -1
+	end
 end
 
 
@@ -49,10 +59,15 @@ end
 
 
 string.cntSubstr = function( s1, s2 )
-	if needle == "." then needle = "%." end
 	if s2 == nil then return 0 end
+	if s2 == "." then s2 = "%." end
 
 	return select( 2, s1:gsub( s2, "" ) )
+end
+
+
+string.substr = function( str, pos01, pos02 )
+	return string.sub( str, pos01, pos02 )
 end
 
 
@@ -65,10 +80,8 @@ function StringBuilder.new( txt )
 	sb.strings = {}
 
 	function sb:append( txt )
-		if txt ~= nil then
-			table.insert( sb.strings, txt )
-			return sb
-		end
+		table.insert( sb.strings, txt )
+		return sb
 	end
 
 	function sb:remove( index )
@@ -85,7 +98,9 @@ function StringBuilder.new( txt )
 	end
 
 	-- initial value?
-	sb:append( txt )
-	
+	if txt ~= nil then 
+		sb:append( txt )
+	end
+
 	return sb
 end

@@ -1,3 +1,5 @@
+require( "defgui.defold" )
+
 local lua = require( "defgui.lualib" )
 local Field = require( "defgui.field" )
 
@@ -7,19 +9,17 @@ local Checkbox = {}
 
 function Checkbox.new( form, id, x, y, handler, caption )
 	local clickHandler = function( guiSelf, field, action_id, action )
-		if action_id == hash( "touch" ) and action.pressed then 
-			if gui.pick_node( field.rootNode, action.x, action.y ) then
-				field.value = not field.value
-				if field.value then 
-					gui.set_text( field.checkmarkNode, "X" )
-				else
-					gui.set_text( field.checkmarkNode, "" )
-				end
+		if guiIsClicked( field.rootNode, action_id, action ) then 
+			field.value = not field.value
+			if field.value then 
+				gui.set_text( field.checkmarkNode, "X" )
+			else
+				gui.set_text( field.checkmarkNode, "" )
+			end
 
-				-- call custom button handler, as well
-				if handler then 
-					handler( guiSelf, field, action_id, action )
-				end
+			-- call custom button handler, as well
+			if handler then 
+				handler( guiSelf, field, action_id, action )
 			end
 		end
 	end
@@ -29,7 +29,7 @@ function Checkbox.new( form, id, x, y, handler, caption )
 	field.value = false
 
 
-	local tmplNode = lua.guiGetNode( "checkbox/root" )
+	local tmplNode = guiGetNode( "checkbox/root" )
 	assert( tmplNode, "You must have a node in your GUI which must be declared as a template for checkboxes in your form!" )
 
 	local nodes = gui.clone_tree( tmplNode )
