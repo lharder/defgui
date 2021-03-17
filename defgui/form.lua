@@ -7,7 +7,6 @@ local Button = require( "defgui.button" )
 local Checkbox = require( "defgui.checkbox" )
 local Label = require( "defgui.label" )
 local Selectbox = require( "defgui.selectbox" )
-local Grid = require( "defgui.grid" )
 local Slider = require( "defgui.slider" )
 
 
@@ -22,7 +21,6 @@ function Form.new( id, nodenames )
 	form.id = id
 	form.fields = {}
 	form.nodes = {}
-	form.grids = {}
 
 	-- disable template nodes: only use to be copied
 	for fieldname, nodename in pairs( nodenames ) do
@@ -83,18 +81,6 @@ function Form.new( id, nodenames )
 		local field = Selectbox.new( form, id, x, y, width, height, handler )
 		return field
 	end
-
-	function form:addGrid( id, x, y, width, height, columns, rows )
-		local grid = Grid.new( form, id, x, y, width, height, columns, rows )
-		form.grids[ id ] = grid
-		
-		return grid
-	end
-
-	function form:getGrid( id )
-		return form.grids[ id ]
-	end
-
 
 	function form:fade( opacity, secs, callback )
 		if secs == nil then secs = 1 end
