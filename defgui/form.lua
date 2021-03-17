@@ -40,11 +40,12 @@ function Form.new( id, nodenames )
 
 		form.fields[ field.id ] = field
 		field.form = form
+	end
 
-		function form:input( guiSelf, action_id, action )
-			for id, field in pairs( form.fields ) do 
-				field.inputHandler( guiSelf, field, action_id, action )
-			end
+	
+	function form:input( guiSelf, action_id, action )
+		for id, field in pairs( form.fields ) do 
+			field.inputHandler( guiSelf, field, action_id, action )
 		end
 	end
 
