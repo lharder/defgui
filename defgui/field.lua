@@ -1,6 +1,4 @@
-require( "defgui.stringutils" )
-
-local lua = require( "defgui.lualib" )
+local lua = require( "deflibs.lualib" )
 
 
 -- Field -------------------------------------------

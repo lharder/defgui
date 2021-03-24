@@ -1,6 +1,6 @@
 require( "defgui.utils" )
 
-local lua = require( "defgui.lualib" )
+local lua = require( "deflibs.lualib" )
 local Field = require( "defgui.field" )
 
 
