@@ -42,6 +42,7 @@ function init( self )
 	self.checkbox:setImage( "main/checkbox" )
 	self.checkbox:setColorCaption( "#FF9A34" )
 	self.checkbox:setColorX( "#19CDD1" )
+	self.checkbox:check( true )
 
 	self.label = self.form:addLabel( "txt01", 150, 500, 400, 80,
 		function() 

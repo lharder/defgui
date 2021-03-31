@@ -11,11 +11,7 @@ function Checkbox.new( form, id, x, y, handler, caption )
 	local clickHandler = function( guiSelf, field, action_id, action )
 		if guiIsClicked( field.rootNode, action_id, action ) then 
 			field.value = not field.value
-			if field.value then 
-				gui.set_text( field.checkmarkNode, "X" )
-			else
-				gui.set_text( field.checkmarkNode, "" )
-			end
+			field:check( field.value )
 
 			-- call custom button handler, as well
 			if handler then 
@@ -61,6 +57,11 @@ function Checkbox.new( form, id, x, y, handler, caption )
 
 	function field:check( onOrOff )
 		field.value = onOrOff
+		if field.value then 
+			gui.set_text( field.checkmarkNode, "X" )
+		else
+			gui.set_text( field.checkmarkNode, "" )
+		end
 	end
 
 
