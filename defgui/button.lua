@@ -11,11 +11,12 @@ local Button = {}
 function Button.new( form, id, x, y, width, height, handler, caption )
 	local clickHandler = function( guiSelf, field, action_id, action )
 		if guiIsClicked( field.rootNode, action_id, action ) then 
-			field:blink()
-			-- call custom button handler, as well
-			if handler then 
-				handler( guiSelf, field, action_id, action )
-			end
+			field:blink( function() 
+				if handler then 
+					-- call custom button handler, as well
+					handler( guiSelf, field, action_id, action )
+				end
+			end )
 		end
 	end
 
@@ -46,14 +47,17 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 	form:add( field )
 
 	
-	function field:blink() 
+	function field:blink( callback ) 
 		if field.animDone then
 			field.animDone = false
 			local col = gui.get_color( field.rootNode )
 			gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0, 
 				function( self, node ) 
 					gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w ), gui.EASING_LINEAR, 0.1, 0, 
-						function() field.animDone = true end
+						function() 
+							field.animDone = true 
+							if callback then callback() end
+						end
 					)
 				end 
 			)
