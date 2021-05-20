@@ -115,10 +115,17 @@ function InputText.new( form, id, x, y, width, height, handler, defaultValue )
 	assert( field.rootNode, "Unable to access newly created txtfield/root node!" )
 
 	gui.set_id( field.rootNode, id .. "/root" )
-	gui.set_position( field.rootNode, vmath.vector3( x, y, 1 ) )
+	gui.set_position( field.rootNode, vmath.vector3( x, y, 0 ) )
 	gui.set_size( field.rootNode, vmath.vector3( width, height, 1 ) )
 	gui.set_enabled( field.rootNode, true )
 
+	field.bgNode = nodes[ hash( "txtfield/background" ) ]
+	assert( field.rootNode, "Unable to access newly created txtfield/background node!" )
+
+	gui.set_id( field.bgNode, id .. "/background" )
+	gui.set_size( field.bgNode, vmath.vector3( width, height, 1 ) )
+	gui.set_enabled( field.bgNode, true )
+	
 	field.txtNode = nodes[ hash( "txtfield/text" ) ]
 	assert( field.txtNode, "Unable to access newly created txtfield/text node!" )
 
