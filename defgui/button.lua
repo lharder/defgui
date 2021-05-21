@@ -44,16 +44,26 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 	gui.set_text( field.captionNode, caption )
 	gui.set_size( field.captionNode, vmath.vector3( width, height, 1 ) )
 
+	field.imageNode = nodes[ hash( "button/image" ) ] 
+	assert( field.imageNode, "Unable to access newly created button/image node!" )
+
+	gui.set_id( field.imageNode, id .. "/image" )
+	gui.set_size( field.imageNode, vmath.vector3( width, height, 1 ) )
+	
 	form:add( field )
 
 	
 	function field:blink( callback ) 
 		if field.animDone then
 			field.animDone = false
-			local col = gui.get_color( field.rootNode )
-			gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0, 
+			local colImage = gui.get_color( field.imageNode )
+			gui.animate( field.imageNode, gui.PROP_COLOR, vmath.vector4( colImage.x, colImage.y, colImage.z, colImage.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0 )
+
+			local colRoot = gui.get_color( field.rootNode )
+			gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( colRoot.x, colRoot.y, colRoot.z, colRoot.w * 0.3 ), gui.EASING_LINEAR, 0.1, 0, 
 				function( self, node ) 
-					gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( col.x, col.y, col.z, col.w ), gui.EASING_LINEAR, 0.1, 0, 
+					gui.animate( field.imageNode, gui.PROP_COLOR, vmath.vector4( colImage.x, colImage.y, colImage.z, colImage.w ), gui.EASING_LINEAR, 0.1, 0 ) 
+					gui.animate( field.rootNode, gui.PROP_COLOR, vmath.vector4( colRoot.x, colRoot.y, colRoot.z, colRoot.w ), gui.EASING_LINEAR, 0.1, 0, 
 						function() 
 							field.animDone = true 
 							if callback then callback() end
@@ -84,9 +94,26 @@ function Button.new( form, id, x, y, width, height, handler, caption )
 
 
 	function field:setImage( atlasImgPath )
-		local atlas, img = Texture( atlasImgPath )
-		gui.set_texture( field.rootNode, atlas )
-		gui.play_flipbook( field.rootNode, img )
+		if atlasImgPath == nil then 
+			-- switch back to rootNode bg color
+			local color = gui.get_color( field.imageNode )
+			gui.set_color( field.imageNode, vmath.vector4( color.x, color.y, color.z, 0 ) )
+
+			color = gui.get_color( field.rootNode )
+			gui.set_color( field.rootNode, vmath.vector4( color.x, color.y, color.z, 1 ) )
+			
+		else 
+			local atlas, img = Texture( atlasImgPath )
+			gui.set_texture( field.imageNode, atlas )
+			gui.play_flipbook( field.imageNode, img )
+
+			-- switch off rottNode's bg color
+			local color = gui.get_color( field.imageNode )
+			gui.set_color( field.imageNode, vmath.vector4( color.x, color.y, color.z, 1 ) )
+
+			color = gui.get_color( field.rootNode )
+			gui.set_color( field.rootNode, vmath.vector4( color.x, color.y, color.z, 0 ) )
+		end
 	end
 
 
