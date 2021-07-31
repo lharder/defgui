@@ -1,9 +1,9 @@
 images {
-  image: "/assets/images/button.png"
+  image: "/defgui/assets/button.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/checkbox.png"
+  image: "/defgui/assets/checkbox.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

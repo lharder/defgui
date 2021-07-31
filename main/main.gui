@@ -9,7 +9,7 @@ fonts {
 }
 textures {
   name: "main"
-  texture: "/main/main.atlas"
+  texture: "/defgui/defgui.atlas"
 }
 background_color {
   x: 0.0
