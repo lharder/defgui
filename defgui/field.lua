@@ -1,5 +1,3 @@
-local lua = require( "deflibs.lualib" )
-
 
 -- Field -------------------------------------------
 local Field = {}

@@ -1,5 +1,5 @@
-require( "deflibs.defold" )
-local lua = require( "deflibs.lualib" )
+require( "defgui.utils" )
+
 
 local Field = require( "defgui.field" )
 local InputText = require( "defgui.txtfield" )
@@ -34,7 +34,7 @@ function Form.new( id, nodenames )
 	function form:add( field )
 		assert( field, "Form field must not be nil!" )
 		assert( field.id, "Form field must have an id!" )
-		assert( not lua.contains( form.fields, field.id ), "Duplicate field id: " .. field.id .. " in form!" )
+		assert( not contains( form.fields, field.id ), "Duplicate field id: " .. field.id .. " in form!" )
 
 		form.fields[ field.id ] = field
 		field.form = form

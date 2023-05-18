@@ -49,3 +49,47 @@ function Texture( url, default )
 	return atlas, img
 end
 
+
+function guiGetNode( id )
+	local ok, result = pcall( gui.get_node, id )
+	if ok then 
+		return result
+	else
+		pprint( "Error: " .. result ) 
+	end
+end
+
+
+function contains( tab, value )
+	for key, item in pairs( tab ) do
+		if item == value then
+			return true
+		end
+	end
+
+	return false
+end
+
+
+function string.split( self, delim )
+	local t = {} 
+	local wordStart = 1
+	local delimStart, delimEnd 
+	while true  do
+		delimStart, delimEnd = self:find( delim, wordStart, true )
+		if delimStart == nil then 
+			if wordStart <= #self then 
+				table.insert( t, self:sub( wordStart ))
+			end 
+			break
+		end
+		table.insert( t, self:sub( wordStart, delimStart - 1 ) )
+		wordStart = delimEnd + 1
+	end 
+	return t
+end
+ 
+
+string.startsWith = function( s, start )
+	return s:sub( 1, #start ) == start
+end

@@ -1,8 +1,6 @@
 require( "defgui.utils" )
-require( "deflibs.defold" )
 
 local gesture = require( "in.gesture" )
-local lua = require( "deflibs.lualib" )
 local Field = require( "defgui.field" )
 
 

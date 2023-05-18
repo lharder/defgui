@@ -1,7 +1,5 @@
 require( "defgui.utils" )
-require( "deflibs.defold" )
 
-local lua = require( "deflibs.lualib" )
 local Field = require( "defgui.field" )
 
 
